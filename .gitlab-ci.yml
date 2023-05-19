@@ -6,6 +6,9 @@ stages:
 build:
     stage: build
     image: node
+    tags:
+        - nei-runner
+
     # services:
     #     - docker:dind
 
