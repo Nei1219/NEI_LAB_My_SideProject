@@ -15,7 +15,7 @@ docker push 802783396857.dkr.ecr.eu-west-1.amazonaws.com/nei_repository:latest
 
 
 $port = 3000
-$name = "app02"
+$name = "app03"
 $image = "802783396857.dkr.ecr.eu-west-1.amazonaws.com/nei_repository:latest"
 
 # Define Container
@@ -38,7 +38,7 @@ $ContainerDefinitions.Add($(New-Object -TypeName "Amazon.ECS.Model.ContainerDefi
 
 # Create Task
 $Region = "eu-west-1"
-$TaskName = "task02"
+$TaskName = "task03"
 $ExecutionRole = $(Get-IAMRole -profilename 8027 -RoleName "ecsTaskExecutionROle").Arn
 Write-Host "Creating New Task Definition $TaskName"
 $TaskDefinition = Register-ECSTaskDefinition  -profilename 8027 `
@@ -62,10 +62,10 @@ aws cloudformation deploy --template-file ./web3.json --stack-name Stack02 --par
 # Get last task
 $lastECSTaskDefinitions = Get-ECSTaskDefinitions -ProfileName 8027 -Region eu-west-1 |select -Last 1 
 $lastECSTaskDefinitions
-$LastTaskDefinition = Get-ECSTaskDefinitionDetail -ProfileName 8027 -Region eu-west-1  -TaskDefinition task01
+$LastTaskDefinition = Get-ECSTaskDefinitionDetail -ProfileName 8027 -Region eu-west-1  -TaskDefinition task03
 
 # Update Service
-$ClusterName = "webapp-cluster"
+$ClusterName = "cu2"
 $ServiceName = "service02"
 Write-Host "Updating Service $ServiceName"
 $ServiceUpdate = Update-ECSService -profilename 8027 -Region $Region `
