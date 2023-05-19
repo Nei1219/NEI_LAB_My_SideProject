@@ -12,13 +12,14 @@ build:
     # services:
     #     - docker:dind
 
-    # script:
-    #     - echo "hello world"
     script:
-        - docker build -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
-        - docker tag app06:latest $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
-        - aws ecr get-login-password --region eu-west-1 --profile 8027 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
-        - docker push $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+        - echo "hello world"
+        - ls -al
+    # script:
+    #     - docker build -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+    #     - docker tag app06:latest $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+    #     - aws ecr get-login-password --region eu-west-1 --profile 8027 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    #     - docker push $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
 # deploy:
 #     stage: deploy
 #     image: 802783396857.dkr.ecr.eu-west-1.amazonaws.com/nei_repository:latest
