@@ -1,18 +1,21 @@
 stages:
     - build
-    - test
-    - deploy
+    # - test
+    # - deploy
 
 build:
-    stage: deploy
-    image: docker:latest
-    services:
-        - docker:dind
+    stage: build
+    image: node
+    # services:
+    #     - docker:dind
+
     script:
-        - docker build -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
-        - docker tag app06:latest $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
-        - aws ecr get-login-password --region eu-west-1 --profile 8027 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
-        - docker push $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+        - echo "hello world"
+    # script:
+    #     - docker build -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+    #     - docker tag app06:latest $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+    #     - aws ecr get-login-password --region eu-west-1 --profile 8027 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    #     - docker push $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
 # deploy:
 #     stage: deploy
 #     image: 802783396857.dkr.ecr.eu-west-1.amazonaws.com/nei_repository:latest
