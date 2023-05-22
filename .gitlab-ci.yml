@@ -5,7 +5,7 @@ stages:
 
 build:
     stage: build
-    image: nginx
+    image: nginx:latest
     tags:
         - nei-runner
 
