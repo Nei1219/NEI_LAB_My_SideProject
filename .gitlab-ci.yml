@@ -9,8 +9,8 @@ build:
     tags:
         - nei-runner
 
-    services:
-        - docker:dind
+    # services:
+    #     - docker:dind
 
     # script:
     #     - echo "hello world"
