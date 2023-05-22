@@ -5,7 +5,7 @@ stages:
 
 build:
     stage: build
-    image: docker
+    image: docker:latest
     tags:
         - nei-runner
 
@@ -21,6 +21,7 @@ build:
         - docker buildx build --platform linux/amd64 -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG .
         # - docker build -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
         - docker tag app06:latest $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+        - docker images
     #     - aws ecr get-login-password --region eu-west-1 --profile 8027 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
     #     - docker push $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
 # deploy:
