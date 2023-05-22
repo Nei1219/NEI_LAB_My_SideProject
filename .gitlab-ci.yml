@@ -5,7 +5,7 @@ stages:
 
 build:
     stage: build
-    image: node:latest
+    image: docker:latest
     tags:
         - nei-runner
 
