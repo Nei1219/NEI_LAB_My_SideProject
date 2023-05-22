@@ -5,12 +5,12 @@ stages:
 
 build:
     stage: build
-    image: docker:latest
+    image: node:latest
     tags:
         - nei-runner
 
     # services:
-    #     - docker:dind
+    #     - docker:20.10.16-dind
 
     # script:
     #     - echo "hello world"
