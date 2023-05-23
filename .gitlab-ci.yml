@@ -8,7 +8,7 @@ stages:
 
 build_and_configure:
     stage: build
-    # image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+    image: bentolor/docker-dind-awscli
     tags:
         - nei-runner
     services:
