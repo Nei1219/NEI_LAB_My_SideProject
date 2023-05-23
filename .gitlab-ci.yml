@@ -17,10 +17,10 @@ build_and_configure:
     #     DOCKER_DRIVER: overlay2
     # before_script:
     before_script:
-        - docker info
-        - cat /etc/os-release
-        - echo $AWS_ACCESS_KEY_ID
-        - echo $AWS_SECRET_ACCESS_KEY
+        # - docker info
+        # - cat /etc/os-release
+        # - echo $AWS_ACCESS_KEY_ID
+        # - echo $AWS_SECRET_ACCESS_KEY
         # - apt-get update -y
         # - apt-get install -y docker.io
         # - apt-get install -y awscli
@@ -35,6 +35,7 @@ build_and_configure:
         #     - aws --version
         # - echo "output=json" >> $HOME/.aws/config
         # - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
+        - docker info
         - aws --version
         - docker build -t $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG .
         - docker images
