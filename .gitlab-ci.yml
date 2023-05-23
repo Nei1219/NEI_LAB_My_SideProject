@@ -3,10 +3,6 @@ stages:
     # - test
     # - deploy
 
-before_script:
-    - apk update
-    - apk add docker
-
 build:
     stage: build
     image: node:latest
@@ -20,6 +16,10 @@ build:
     #     - ls -al
     #     - docker pull nginx
     #     - docker images
+    before_script:
+        - apk update
+        - apk add docker
+
     script:
         - echo "$AWS_ECR_REGISTRY" | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
         # - docker buildx build --platform linux/amd64 -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG .
