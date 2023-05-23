@@ -3,8 +3,8 @@ stages:
     # - test
     # - deploy
 
-variables:
-    AWS_PROFILE: "802783396857"
+# variables:
+#     AWS_PROFILE: "802783396857"
 
 build_and_configure:
     stage: build
@@ -18,12 +18,14 @@ build_and_configure:
     # before_script:
     script:
         - cat /etc/os-release
+        - echo $AWS_ACCESS_KEY_ID
+        - echo $AWS_SECRET_ACCESS_KEY
         # - apt-get update -y
         # - apt-get install -y docker.io
         # - apt-get install -y awscli
-        - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-        - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        - aws --version
+        # - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        # - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+        # - aws --version
     # script:
     #     - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
     #     - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
