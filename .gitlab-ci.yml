@@ -8,11 +8,11 @@ stages:
 
 build_and_configure:
     stage: build
-    image: bentolor/docker-dind-awscli
+    image: node
     tags:
         - nei-runner
-    services:
-        - docker:dind
+    # services:
+    #     - docker:dind
     # variables:
     #     DOCKER_DRIVER: overlay2
     # before_script:
