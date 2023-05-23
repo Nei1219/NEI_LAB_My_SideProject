@@ -20,7 +20,7 @@ build_and_configure:
         - cat /etc/os-release
         - echo $AWS_ACCESS_KEY_ID
         - echo $AWS_SECRET_ACCESS_KEY
-
+        - apt-get install -y systemd
         # - apt-get update -y
         # - apt-get install -y docker.io
         # - apt-get install -y awscli
