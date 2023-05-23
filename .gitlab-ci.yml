@@ -15,6 +15,7 @@ docker-build:
         - hostname
     script:
         - ls
+        - hostname
     # build_and_configure:
     #     stage: build
     #     image: node
