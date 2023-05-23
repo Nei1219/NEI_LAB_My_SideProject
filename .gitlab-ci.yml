@@ -12,7 +12,7 @@ build_and_configure:
     tags:
         - nei-runner
     services:
-        - docker:dind
+        - name: docker:dind
     # variables:
     #     DOCKER_DRIVER: overlay2
     # before_script:
