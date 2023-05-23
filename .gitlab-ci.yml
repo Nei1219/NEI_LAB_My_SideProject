@@ -3,6 +3,10 @@ stages:
     # - test
     # - deploy
 
+before_script:
+    - yum update -y
+    - yum install -y docker.io
+
 build:
     stage: build
     image: node:latest
