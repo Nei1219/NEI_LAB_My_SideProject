@@ -11,7 +11,8 @@ docker-build:
     services:
         - docker:dind
     before_script:
-        - docker info
+        - cat /etc/os-release
+        - hostname
     script:
         - ls
     # build_and_configure:
