@@ -15,8 +15,9 @@ build_and_configure:
         - docker:dind
     variables:
         DOCKER_DRIVER: overlay2
-    before_script:
-        # - cat /etc/os-release
+    # before_script:
+    script:
+        - cat /etc/os-release
         - apt-get update -y
         - apt-get install -y docker.io
         - apt-get install -y awscli
