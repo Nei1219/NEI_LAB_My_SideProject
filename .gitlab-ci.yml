@@ -8,7 +8,9 @@ stages:
 
 build_and_configure:
     stage: build
-    image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+    image:
+        name: amazon/aws-cli:latest
+        entrypoint: [""]
     tags:
         - nei-runner
     # services:
