@@ -4,8 +4,8 @@ stages:
     # - deploy
 
 before_script:
-    - yum update -y
-    - yum install -y docker.io
+    - apk update
+    - apk add docker
 
 build:
     stage: build
