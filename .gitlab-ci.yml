@@ -17,8 +17,8 @@ build_and_configure:
     #     DOCKER_DRIVER: overlay2
     # before_script:
     before_script:
-        - yum install update -y
-        - yum install -y awscli
+        - sudo yum install update -y
+        - sudo yum install -y awscli
         # - cat /etc/os-release
         - echo $AWS_ACCESS_KEY_ID
         - echo $AWS_SECRET_ACCESS_KEY
