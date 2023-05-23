@@ -8,7 +8,7 @@ stages:
 
 build_and_configure:
     stage: build
-    image: amazon/aws-cli:latest
+    image: node
     tags:
         - nei-runner
     # services:
