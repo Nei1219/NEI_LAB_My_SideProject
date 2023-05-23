@@ -4,6 +4,9 @@ stages:
     # - test
     # - deploy
 
+variables:
+    AWS_PROFILE: "802783396857"
+
 configure_aws_cli:
     stage: configure
     image: amazon/aws-cli:latest
@@ -35,7 +38,6 @@ build:
         - apt-get install -y awscli
         - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
         - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        - aws configure --profile 802783396857
 
     script:
         - aws ecr get-login-password --region eu-west-1 --profile 802783396857 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
