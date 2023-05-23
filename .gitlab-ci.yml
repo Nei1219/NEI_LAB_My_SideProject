@@ -17,8 +17,8 @@ build:
     #     - docker pull nginx
     #     - docker images
     before_script:
-        - apk update
-        - apk add docker
+        - cat /etc/os-release
+        # - apk add docker
 
     script:
         - echo "$AWS_ECR_REGISTRY" | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
