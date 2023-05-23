@@ -18,6 +18,7 @@ build_and_configure:
     # before_script:
     before_script:
         - ls -al
+        - pwd
         # - docker info
         # - cat /etc/os-release
         # - echo $AWS_ACCESS_KEY_ID
