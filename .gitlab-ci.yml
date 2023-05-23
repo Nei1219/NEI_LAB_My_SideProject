@@ -13,13 +13,14 @@ build_and_configure:
         - nei-runner
     # services:
     #     - docker:dind
-    variables:
-        DOCKER_DRIVER: overlay2
+    # variables:
+    #     DOCKER_DRIVER: overlay2
     # before_script:
     script:
         - cat /etc/os-release
         - echo $AWS_ACCESS_KEY_ID
         - echo $AWS_SECRET_ACCESS_KEY
+        - aws --version
         # - apt-get update -y
         # - apt-get install -y docker.io
         # - apt-get install -y awscli
