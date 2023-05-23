@@ -10,14 +10,6 @@ variables:
 configure_aws_cli:
     stage: configure
     image: amazon/aws-cli:latest
-    before_script:
-        # - cat /etc/os-release
-        - apt-get update -y
-        - apt-get install -y docker.io
-        - apt-get install -y awscli
-        - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-        - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-
     script:
         - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
         - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
@@ -40,6 +32,13 @@ build:
     #     - ls -al
     #     - docker pull nginx
     #     - docker images
+    before_script:
+        # - cat /etc/os-release
+        - apt-get update -y
+        - apt-get install -y docker.io
+        - apt-get install -y awscli
+        - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 
     script:
         - aws ecr get-login-password --region eu-west-1 --profile 802783396857 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
