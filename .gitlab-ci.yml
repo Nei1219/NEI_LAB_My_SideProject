@@ -1,5 +1,4 @@
 stages:
-    - configure
     - build
     # - test
     # - deploy
@@ -7,31 +6,15 @@ stages:
 variables:
     AWS_PROFILE: "802783396857"
 
-configure_aws_cli:
-    stage: configure
-    image: amazon/aws-cli:latest
-    script:
-        - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
-        - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
-        - echo "AWS_DEFAULT_REGION=eu-west-1" >> $HOME/.aws/config
-        - echo "output=json" >> $HOME/.aws/config
-        - cat $HOME/.aws/config
-    only:
-        - master
-
-build:
+build_and_configure:
     stage: build
-    image: node:latest
+    image: amazon/aws-cli:latest
     tags:
         - nei-runner
-    # services:
-    #     - docker:dind
-
-    # script:
-    #     - echo "hello world"
-    #     - ls -al
-    #     - docker pull nginx
-    #     - docker images
+    services:
+        - docker:dind
+    variables:
+        DOCKER_DRIVER: overlay2
     before_script:
         # - cat /etc/os-release
         - apt-get update -y
@@ -39,17 +22,38 @@ build:
         - apt-get install -y awscli
         - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
         - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-
     script:
+        - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
+        - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
+        - echo "AWS_DEFAULT_REGION=eu-west-1" >> $HOME/.aws/config
+        - echo "output=json" >> $HOME/.aws/config
         - aws ecr get-login-password --region eu-west-1 --profile 802783396857 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
-        # - docker buildx build --platform linux/amd64 -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG .
         - docker build -t $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG .
-        # - /usr/bin/docker tag $DOCKER_REGISTRY:$CI_PIPELINE_IID $DOCKER_REGISTRY:latest
         - docker images
-    #     - aws ecr get-login-password --region eu-west-1 --profile 8027 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
-    #     - docker push $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+
     only:
         - main
+# build:
+#     stage: build
+#     image: node:latest
+#     tags:
+#         - nei-runner
+# services:
+#     - docker:dind
+
+# script:
+#     - echo "hello world"
+#     - ls -al
+#     - docker pull nginx
+#     - docker images
+
+# script:
+# - docker buildx build --platform linux/amd64 -t $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG .
+# - /usr/bin/docker tag $DOCKER_REGISTRY:$CI_PIPELINE_IID $DOCKER_REGISTRY:latest
+#     - aws ecr get-login-password --region eu-west-1 --profile 8027 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+#     - docker push $DOCKER_REGISTRY/$DOCKER_REPO:$CI_COMMIT_TAG
+# only:
+# - main
 # deploy:
 #     stage: deploy
 #     image: 802783396857.dkr.ecr.eu-west-1.amazonaws.com/nei_repository:latest
