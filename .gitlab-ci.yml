@@ -2,15 +2,16 @@ stages:
     - build
     # - test
     # - deploy
-image: node
+docker-build:
+    # Use the official docker image.
+    image: docker:latest
+    stage: build
+    services:
+        - docker:dind
+    before_script:
+        - docker info
 
-# variables:
-#     AWS_PROFILE: "802783396857"
-before_script:
-    - ls -al
-    - pwd
-    - ps
-build_and_configure:
+.build_and_configure:
     stage: build
     image: node
     tags:
