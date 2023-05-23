@@ -11,7 +11,7 @@ docker-build:
     before_script:
         - docker info
 
-.build_and_configure:
+build_and_configure:
     stage: build
     image: node
     tags:
