@@ -5,7 +5,10 @@ stages:
 
 # variables:
 #     AWS_PROFILE: "802783396857"
-
+before_script:
+    - ls -al
+    - pwd
+    - ps
 build_and_configure:
     stage: build
     image: node
@@ -16,21 +19,18 @@ build_and_configure:
     # variables:
     #     DOCKER_DRIVER: overlay2
     # before_script:
-    before_script:
-        - ls -al
-        - pwd
-        - ps
-        # - docker info
-        # - cat /etc/os-release
-        # - echo $AWS_ACCESS_KEY_ID
-        # - echo $AWS_SECRET_ACCESS_KEY
-        # - apt-get update -y
-        # - apt-get install -y docker.io
-        # - apt-get install -y awscli
-        # - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-        # - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        # - aws --version
-        # - docker --version
+
+    # - docker info
+    # - cat /etc/os-release
+    # - echo $AWS_ACCESS_KEY_ID
+    # - echo $AWS_SECRET_ACCESS_KEY
+    # - apt-get update -y
+    # - apt-get install -y docker.io
+    # - apt-get install -y awscli
+    # - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    # - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+    # - aws --version
+    # - docker --version
     script:
         #     - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
         #     - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
@@ -43,8 +43,8 @@ build_and_configure:
         - docker build -t $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG .
         - docker images
 
-    only:
-        - main
+    # only:
+    #     - main
 # build:
 #     stage: build
 #     image: node:latest
