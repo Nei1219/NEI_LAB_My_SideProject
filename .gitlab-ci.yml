@@ -20,6 +20,8 @@ build:
         # - cat /etc/os-release
         - apt-get update -y
         - apt-get install -y docker.io
+        - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 
     script:
         - echo "$AWS_ECR_REGISTRY" | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
