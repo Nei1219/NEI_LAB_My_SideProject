@@ -1,0 +1,54 @@
+stages:
+    - build
+    - deploy
+
+variables:
+    AWS_ACCOUNT_ID: 802783396857
+    ECR_REGISTRY: 802783396857.dkr.ecr.eu-west-1.amazonaws.com
+
+    AWS_DEFAULT_REGION: us-west-1
+    APP_NAME: myapp
+    # DOCKER_HOST: tcp://docker:2375
+    DOCKER_IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+docker-build:
+    image:
+        name: amazon/aws-cli:latest
+        entrypoint: [""]
+    stage: build
+    tags:
+        - runner-1
+    services:
+        - docker:dind
+    before_script:
+        - echo $CI_REGISTRY_USER $CI_REGISTRY_PASSWORD $CI_REGISTRY
+        - cat /etc/os-release
+        - aws --version
+        - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+        - aws configure set default.region $AWS_DEFAULT_REGION
+        - amazon-linux-extras install docker
+        - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 802783396857.dkr.ecr.eu-west-1.amazonaws.com
+        - docker --version
+        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+        # - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+        # - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 802783396857.dkr.ecr.eu-west-1.amazonaws.com
+    script:
+        - docker build -t $CI_REGISTRY_IMAGE -t $ECR_REGISTRY/$APP_NAME .
+        - docker images
+        - docker push $CI_REGISTRY_IMAGE
+        - docker push $ECR_REGISTRY/$APP_NAME
+docker-deploy:
+    stage: deploy
+    tags:
+        - cd-runner
+    before_script:
+        - ls -la
+        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+        - docker rm $APP_NAME -f
+        - docker rmi $CI_REGISTRY_IMAGE
+    script:
+        - echo 'Run docker container'
+
+        - docker pull $CI_REGISTRY_IMAGE
+        - docker run -d --name $APP_NAME -p 8080:80 $CI_REGISTRY_IMAGE
+        - rm -rf /home/user/builds/-r3EzzBn/0/joshlee11127/myapp
