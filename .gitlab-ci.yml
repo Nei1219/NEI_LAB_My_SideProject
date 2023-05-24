@@ -38,9 +38,6 @@ build_and_configure:
         # - apt-get install -y awscli
         - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
         - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile admin
-        - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile admin
-
     # - aws --version
     # - docker --version
     script:
