@@ -22,8 +22,8 @@ build_and_configure:
     image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
     tags:
         - nei-runner
-    services:
-        - name: docker:dind
+    # services:
+    #     - name: docker:dind
     variables:
         DOCKER_DRIVER: overlay2
     before_script:
@@ -44,7 +44,7 @@ build_and_configure:
         - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
         - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
         - echo "AWS_DEFAULT_REGION=$ECR_REGION" >> $HOME/.aws/config
-        # - echo "output=json" >> $HOME/.aws/config
+        - echo "output=json" >> $HOME/.aws/config
         # - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
     # - docker info
     # - aws --version
