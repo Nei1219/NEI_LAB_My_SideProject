@@ -27,7 +27,7 @@ build_and_configure:
     variables:
         DOCKER_DRIVER: overlay2
     before_script:
-        - docker info
+        - docker ps -a
         - aws --version
         - hostname
         # - cat /etc/os-release
