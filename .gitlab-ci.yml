@@ -55,8 +55,8 @@ build_and_configure:
     # - docker build -t $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG .
     # - docker images
 
-    # only:
-    #     - main
+    only:
+        - main
 # build:
 #     stage: build
 #     image: node:latest
