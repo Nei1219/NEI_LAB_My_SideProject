@@ -42,10 +42,9 @@ build_and_configure:
     # - docker --version
     script:
         - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $HOME/.aws/credentials
-    #     - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
-    #     - echo "AWS_DEFAULT_REGION=eu-west-1" >> $HOME/.aws/config
-    #     - aws --version
-    # - echo "output=json" >> $HOME/.aws/config
+        - echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $HOME/.aws/credentials
+        - echo "AWS_DEFAULT_REGION=eu-west-1" >> $HOME/.aws/config
+        - echo "output=json" >> $HOME/.aws/config
     # - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
     # - docker info
     # - aws --version
