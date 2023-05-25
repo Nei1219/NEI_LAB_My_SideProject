@@ -43,6 +43,7 @@ build_and_configure:
 
 deploy:
     stage: deploy
+    image: docker:latest
     tags:
         - nei-runner-cd
     before_script:
