@@ -52,9 +52,9 @@ deploy:
         - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
     script:
         - echo 'Run docker container'
-        - docker ps -a
         - docker pull $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-        - docker images
+        - docker run -d -p 8109:3000 --name nei-web $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+        - docker ps -a
 #   environment: production
 
 # script:
