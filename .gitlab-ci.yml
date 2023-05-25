@@ -46,8 +46,8 @@ deploy:
     image: docker:latest
     tags:
         - nei-runner-cd
-    before_script:
-        - docker rmi $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+    # before_script:
+    #     - docker rmi $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
     script:
         - echo 'Run docker container'
         - docker pull $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
