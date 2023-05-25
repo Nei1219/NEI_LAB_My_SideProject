@@ -43,11 +43,13 @@ stages:
 
 deploy:
     stage: deploy
-    image: gitlab.myregistry.com/my-image:latest
+    image: docker:latest
     tags:
         - nei-runner-cd
-    # before_script:
-    #     - docker rmi $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+    before_script:
+        - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+        - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
     script:
         - echo 'Run docker container'
         - docker ps -a
