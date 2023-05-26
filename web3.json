@@ -35,13 +35,13 @@
                         "Weight": 1
                     }
                 ],
-                "TaskDefinition": "arn:aws:ecs:eu-west-1:802783396857:task-definition/cicd-task:1",
-                "ServiceName": "cicd-service",
+                "TaskDefinition": "arn:aws:ecs:eu-west-1:802783396857:task-definition/cicd-task1:1",
+                "ServiceName": "cicd-service1",
                 "SchedulingStrategy": "REPLICA",
                 "DesiredCount": 1,
                 "LoadBalancers": [
                     {
-                        "ContainerName": "cicd-myapp",
+                        "ContainerName": "cicd-myapp1",
                         "ContainerPort": 3000,
                         "LoadBalancerName": {
                             "Ref": "AWS::NoValue"
