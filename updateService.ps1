@@ -8,7 +8,7 @@ $LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinit
 $ClusterName = "cicd-cluster"
 $ServiceName = "cicd-service1"
 Write-Host "Updating Service $ServiceName"
-$ServiceUpdate = Update-ECSService -Region $Region `
+$ServiceUpdate = Update-ECSService -Region eu-west-1 `
     -Cluster $ClusterName `
     -ForceNewDeployment $true `
     -Service $ServiceName `

@@ -3,7 +3,7 @@ stages:
     # - deploy
     - pre_deploy
 
-variables:
+.variables:
     TASK_DEFINITION_NAME: cicd-task
     CLUSTER_NAME: cicd-cluster
     SERVICE_NAME: cicd-service
