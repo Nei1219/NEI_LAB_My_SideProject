@@ -1,14 +1,14 @@
 Install-Module AWSPowerShell -Force
 Import-Module -Name AWSPowerShell
 # Get last task
-$lastECSTaskDefinitions = Get-ECSTaskDefinitions -Region eu-west-1 | Select-Object -Last 1 
+$lastECSTaskDefinitions = Get-ECSTaskDefinitions  | Select-Object -Last 1 
 $lastECSTaskDefinitions
-$LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinition cicd-task1 | Select-Object -Last 1 
+$LastTaskDefinition = Get-ECSTaskDefinitionDetail -TaskDefinition cicd-task1 | Select-Object -Last 1 
 # Update Service
 $ClusterName = "cicd-cluster"
 $ServiceName = "cicd-service1"
 Write-Host "Updating Service $ServiceName"
-$ServiceUpdate = Update-ECSService -Region eu-west-1 `
+$ServiceUpdate = Update-ECSService
     -Cluster $ClusterName `
     -ForceNewDeployment $true `
     -Service $ServiceName `
