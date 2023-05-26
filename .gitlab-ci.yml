@@ -57,7 +57,7 @@ deploy:
         - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
         # - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
     script:
-        - ./ECSscript.ps1
+        - sh ECSscript.ps1
         # - echo 'Run docker container'
         # - docker pull $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
         # - docker run -d -p 8109:3000 --name nei-web $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
