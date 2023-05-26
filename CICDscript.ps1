@@ -43,25 +43,4 @@ Write-Verbose $TaskDefinition | ConvertTo-Json
 
 
 # if no service, create new ecs service through aws-cli cloudformation
-aws cloudformation deploy --template-file ./web3.json --stack-name cicd-stack01 --parameter-overrides InstanceTypeParameter=t2.micro --region eu-west-1
-
-# Get last task
-$lastECSTaskDefinitions = Get-ECSTaskDefinitions -Region eu-west-1 | Select-Object -Last 1 
-$lastECSTaskDefinitions
-$LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinition cicd-task:5
-
-# Update Service
-$ClusterName = "cicd-cluster"
-$ServiceName = "cicd-service1"
-Write-Host "Updating Service $ServiceName"
-$ServiceUpdate = Update-ECSService -Region $Region `
-    -Cluster $ClusterName `
-    -ForceNewDeployment $true `
-    -Service $ServiceName `
-    -TaskDefinition $LastTaskDefinition.TaskDefinition.TaskDefinitionArn `
-    -DesiredCount 2 `
-    -DeploymentConfiguration_MaximumPercent 200 `
-    -DeploymentConfiguration_MinimumHealthyPercent 100
-
-Write-Host "Updated Service $($ServiceUpdate.ServiceArn)"
-$ServiceUpdate | ConvertTo-Json
+# aws cloudformation deploy --template-file ./web3.json --stack-name cicd-stack01 --parameter-overrides InstanceTypeParameter=t2.micro --region eu-west-1
