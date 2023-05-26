@@ -8,10 +8,7 @@ $LastTaskDefinition = Get-ECSTaskDefinitionDetail -TaskDefinition cicd-task1 | S
 $ClusterName = "cicd-cluster"
 $ServiceName = "cicd-service1"
 Write-Host "Updating Service $ServiceName"
-$ServiceUpdate = Update-ECSService
-    -Cluster $ClusterName `
-    -ForceNewDeployment $true `
-    -Service $ServiceName `
+$ServiceUpdate = Update-ECSService -Cluster $ClusterName -ForceNewDeployment $true -Service $ServiceName `
     -TaskDefinition $LastTaskDefinition.TaskDefinition.TaskDefinitionArn `
     -DesiredCount 2 `
     -DeploymentConfiguration_MaximumPercent 200 `
