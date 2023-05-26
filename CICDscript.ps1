@@ -2,7 +2,7 @@ Install-Module AWSPowerShell -Force
 Import-Module -Name AWSPowerShell
 
 $port = 3000
-$name = "cicd-myapp"
+$name = "cicd-myapp1"
 $image = "802783396857.dkr.ecr.eu-west-1.amazonaws.com/nei_repository:latest"
 
 # Define Container
@@ -24,7 +24,7 @@ $ContainerDefinitions.Add($(New-Object -TypeName "Amazon.ECS.Model.ContainerDefi
         
 # Create Task
 $Region = "eu-west-1"
-$TaskName = "cicd-task"
+$TaskName = "cicd-task1"
 $ExecutionRole = $(Get-IAMRole -RoleName "ecsTaskExecutionROle").Arn
 Write-Host "Creating New Task Definition $TaskName"
 $TaskDefinition = Register-ECSTaskDefinition `
@@ -43,7 +43,7 @@ Write-Verbose $TaskDefinition | ConvertTo-Json
 
 
 # if no service, create new ecs service through aws-cli cloudformation
-aws cloudformation deploy --template-file ./web3.json --stack-name cicd-stack --parameter-overrides InstanceTypeParameter=t2.micro --region eu-west-1
+aws cloudformation deploy --template-file ./web3.json --stack-name cicd-stack01 --parameter-overrides InstanceTypeParameter=t2.micro --region eu-west-1
 
 # Get last task
 $lastECSTaskDefinitions = Get-ECSTaskDefinitions -Region eu-west-1 | Select-Object -Last 1 
@@ -52,7 +52,7 @@ $LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinit
 
 # Update Service
 $ClusterName = "cicd-cluster"
-$ServiceName = "cicd-service"
+$ServiceName = "cicd-service1"
 Write-Host "Updating Service $ServiceName"
 $ServiceUpdate = Update-ECSService -Region $Region `
     -Cluster $ClusterName `
