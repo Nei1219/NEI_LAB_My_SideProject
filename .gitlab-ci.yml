@@ -55,6 +55,7 @@ pre_deploy:
         - nei-runner-cd
     script:
         - pwsh
+        - pwsh -f ECSscript.ps1
 
 .deploy:
     stage: deploy
