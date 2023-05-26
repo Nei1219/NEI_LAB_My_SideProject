@@ -25,9 +25,9 @@ $ContainerDefinitions.Add($(New-Object -TypeName "Amazon.ECS.Model.ContainerDefi
 # Create Task
 $Region = "eu-west-1"
 $TaskName = "cicd-task"
-$ExecutionRole = $(Get-IAMRole -profilename 8027 -RoleName "ecsTaskExecutionROle").Arn
+$ExecutionRole = $(Get-IAMRole -RoleName "ecsTaskExecutionROle").Arn
 Write-Host "Creating New Task Definition $TaskName"
-$TaskDefinition = Register-ECSTaskDefinition -profilename 8027 `
+$TaskDefinition = Register-ECSTaskDefinition `
     -ContainerDefinition $ContainerDefinitions `
     -Cpu 256 `
     -Family $TaskName `
@@ -43,18 +43,18 @@ Write-Verbose $TaskDefinition | ConvertTo-Json
 
 
 # if no service, create new ecs service through aws-cli cloudformation
-aws cloudformation deploy --template-file ./web3.json --stack-name cicd-stack --parameter-overrides InstanceTypeParameter=t2.micro --profile 8027 --region eu-west-1
+aws cloudformation deploy --template-file ./web3.json --stack-name cicd-stack --parameter-overrides InstanceTypeParameter=t2.micro --region eu-west-1
 
 # Get last task
-$lastECSTaskDefinitions = Get-ECSTaskDefinitions -ProfileName 8027 -Region eu-west-1 | Select-Object -Last 1 
+$lastECSTaskDefinitions = Get-ECSTaskDefinitions -Region eu-west-1 | Select-Object -Last 1 
 $lastECSTaskDefinitions
-$LastTaskDefinition = Get-ECSTaskDefinitionDetail -ProfileName 8027 -Region eu-west-1 -TaskDefinition cicd-task:1
+$LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinition cicd-task:1
 
 # Update Service
 $ClusterName = "cicd-cluster"
 $ServiceName = "cicd-service"
 Write-Host "Updating Service $ServiceName"
-$ServiceUpdate = Update-ECSService -profilename 8027 -Region $Region `
+$ServiceUpdate = Update-ECSService -Region $Region `
     -Cluster $ClusterName `
     -ForceNewDeployment $true `
     -Service $ServiceName `
