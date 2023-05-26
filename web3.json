@@ -4,7 +4,7 @@
     "Parameters": {
         "ECSClusterName": {
             "Type": "String",
-            "Default": "cu2"
+            "Default": "cicd-cluster"
         },
         "SecurityGroupIDs": {
             "Type": "CommaDelimitedList",
@@ -20,14 +20,14 @@
         },
         "LoadBalancerName": {
             "Type": "String",
-            "Default": "alb03"
+            "Default": "cicd-alb"
         }
     },
     "Resources": {
         "ECSService": {
             "Type": "AWS::ECS::Service",
             "Properties": {
-                "Cluster": "cu2",
+                "Cluster": "cicd-cluster",
                 "CapacityProviderStrategy": [
                     {
                         "CapacityProvider": "FARGATE",
@@ -35,13 +35,13 @@
                         "Weight": 1
                     }
                 ],
-                "TaskDefinition": "arn:aws:ecs:eu-west-1:802783396857:task-definition/task03:1",
-                "ServiceName": "service02",
+                "TaskDefinition": "arn:aws:ecs:eu-west-1:802783396857:task-definition/cicd-task:1",
+                "ServiceName": "cicd-service",
                 "SchedulingStrategy": "REPLICA",
                 "DesiredCount": 1,
                 "LoadBalancers": [
                     {
-                        "ContainerName": "app03",
+                        "ContainerName": "cicd-myapp",
                         "ContainerPort": 3000,
                         "LoadBalancerName": {
                             "Ref": "AWS::NoValue"
@@ -86,7 +86,7 @@
             "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
             "Properties": {
                 "Type": "application",
-                "Name": "alb03",
+                "Name": "cicd-alb",
                 "SecurityGroups": {
                     "Ref": "SecurityGroupIDs"
                 },
@@ -99,7 +99,7 @@
             "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
             "Properties": {
                 "HealthCheckPath": "/",
-                "Name": "tg02",
+                "Name": "cicd-tg",
                 "Port": 80,
                 "Protocol": "HTTP",
                 "TargetType": "ip",

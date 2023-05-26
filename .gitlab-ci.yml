@@ -1,6 +1,12 @@
 stages:
     # - build
     - deploy
+
+variables:
+    TASK_DEFINITION_NAME: cicd-task
+    CLUSTER_NAME: cicd-cluster
+    SERVICE_NAME: cicd-service
+
 .docker-build:
     # Use the official docker image.
     image: docker:latest
@@ -49,12 +55,13 @@ deploy:
     before_script:
         - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
         - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
+        # - aws ecr get-login-password --region eu-west-1 | docker login -u AWS --password-stdin $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com 2>&1
     script:
-        - echo 'Run docker container'
-        - docker pull $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-        - docker run -d -p 8109:3000 --name nei-web $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-        - docker ps -a
+        - ./ECSscript.ps1
+        # - echo 'Run docker container'
+        # - docker pull $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+        # - docker run -d -p 8109:3000 --name nei-web $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+        # - docker ps -a
 #   environment: production
 
 # script:
