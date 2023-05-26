@@ -1,6 +1,7 @@
 stages:
     # - build
-    - deploy
+    # - deploy
+    - pre_deploy
 
 variables:
     TASK_DEFINITION_NAME: cicd-task
