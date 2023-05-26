@@ -1,3 +1,4 @@
+Install-Module AWSPowerShell
 Import-Module -Name AWSPowerShell
 
 $port = 3000
