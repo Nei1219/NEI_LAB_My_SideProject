@@ -1,10 +1,9 @@
+Install-Module AWSPowerShell -Force
+Import-Module -Name AWSPowerShell
 # Get last task
 $lastECSTaskDefinitions = Get-ECSTaskDefinitions -Region eu-west-1 | Select-Object -Last 1 
 $lastECSTaskDefinitions
 $LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinition cicd-task1 | Select-Object -Last 1 
-
-Install-Module AWSPowerShell -Force
-Import-Module -Name AWSPowerShell
 # Update Service
 $ClusterName = "cicd-cluster"
 $ServiceName = "cicd-service1"
