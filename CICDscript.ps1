@@ -48,7 +48,7 @@ aws cloudformation deploy --template-file ./web3.json --stack-name cicd-stack --
 # Get last task
 $lastECSTaskDefinitions = Get-ECSTaskDefinitions -Region eu-west-1 | Select-Object -Last 1 
 $lastECSTaskDefinitions
-$LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinition cicd-task:1
+$LastTaskDefinition = Get-ECSTaskDefinitionDetail -Region eu-west-1 -TaskDefinition cicd-task:5
 
 # Update Service
 $ClusterName = "cicd-cluster"
