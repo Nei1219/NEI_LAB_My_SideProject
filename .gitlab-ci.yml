@@ -45,7 +45,6 @@ build_and_configure:
         - docker build -t $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG .
         - docker images
         - docker push $ECR_URI.dkr.ecr.$ECR_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-        - 'curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\": \"-975374759\", \"text\": \"CI: new version was uploaded, see: https://preview.startup.com\"}" https://api.telegram.org/bot6059017186:AAEvVuA8H90CwuyAFlXN-rvAZNpZ3qPE6wM/sendMessage '
     only:
         - main
 
